@@ -50,7 +50,6 @@ public final class GrpcTracing {
    */
   public ClientInterceptor newClientInterceptor() {
     return new FilibusterClientInterceptor();
-//    return new TracingClientInterceptor(clientInstrumenter, propagators);
   }
 
   /**
@@ -59,6 +58,5 @@ public final class GrpcTracing {
    */
   public ServerInterceptor newServerInterceptor() {
     return new FilibusterServerInterceptor();
-//    return new TracingServerInterceptor(serverInstrumenter, captureExperimentalSpanAttributes);
   }
 }
