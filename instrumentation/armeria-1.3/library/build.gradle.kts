@@ -5,7 +5,8 @@ plugins {
 
 dependencies {
   library("com.linecorp.armeria:armeria:1.3.0")
-  library("cloud.filibuster:instrumentation:0.2-SNAPSHOT")
+
+  library("cloud.filibuster:instrumentation:0.3-SNAPSHOT")
 
   testImplementation(project(":instrumentation:armeria-1.3:testing"))
 }
