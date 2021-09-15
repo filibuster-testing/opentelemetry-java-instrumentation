@@ -15,6 +15,7 @@ import cloud.filibuster.instrumentation.libraries.grpc.FilibusterClientIntercept
 import cloud.filibuster.instrumentation.libraries.grpc.FilibusterServerInterceptor;
 
 /** Entrypoint for tracing gRPC servers or clients. */
+@SuppressWarnings("FieldCanBeLocal")
 public final class GrpcTracing {
 
   /** Returns a new {@link GrpcTracing} configured with the given {@link OpenTelemetry}. */
@@ -27,20 +28,20 @@ public final class GrpcTracing {
     return new GrpcTracingBuilder(openTelemetry);
   }
 
-//  private final Instrumenter<GrpcRequest, Status> serverInstrumenter;
-//  private final Instrumenter<GrpcRequest, Status> clientInstrumenter;
-//  private final ContextPropagators propagators;
-//  private final boolean captureExperimentalSpanAttributes;
+  private final Instrumenter<GrpcRequest, Status> serverInstrumenter;
+  private final Instrumenter<GrpcRequest, Status> clientInstrumenter;
+  private final ContextPropagators propagators;
+  private final boolean captureExperimentalSpanAttributes;
 
   GrpcTracing(
       Instrumenter<GrpcRequest, Status> serverInstrumenter,
       Instrumenter<GrpcRequest, Status> clientInstrumenter,
       ContextPropagators propagators,
       boolean captureExperimentalSpanAttributes) {
-//    this.serverInstrumenter = serverInstrumenter;
-//    this.clientInstrumenter = clientInstrumenter;
-//    this.propagators = propagators;
-//    this.captureExperimentalSpanAttributes = captureExperimentalSpanAttributes;
+    this.serverInstrumenter = serverInstrumenter;
+    this.clientInstrumenter = clientInstrumenter;
+    this.propagators = propagators;
+    this.captureExperimentalSpanAttributes = captureExperimentalSpanAttributes;
   }
 
   /**

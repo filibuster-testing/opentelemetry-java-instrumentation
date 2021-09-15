@@ -17,6 +17,7 @@ import cloud.filibuster.instrumentation.libraries.armeria.http.FilibusterDecorat
 import cloud.filibuster.instrumentation.libraries.armeria.http.FilibusterDecoratingHttpService;
 
 /** Entrypoint for tracing Armeria services or clients. */
+@SuppressWarnings("FieldCanBeLocal")
 public final class ArmeriaTracing {
 
   /** Returns a new {@link ArmeriaTracing} configured with the given {@link OpenTelemetry}. */
@@ -28,14 +29,14 @@ public final class ArmeriaTracing {
     return new ArmeriaTracingBuilder(openTelemetry);
   }
 
-//  private final Instrumenter<ClientRequestContext, RequestLog> clientInstrumenter;
-//  private final Instrumenter<ServiceRequestContext, RequestLog> serverInstrumenter;
+  private final Instrumenter<ClientRequestContext, RequestLog> clientInstrumenter;
+  private final Instrumenter<ServiceRequestContext, RequestLog> serverInstrumenter;
 
   ArmeriaTracing(
       Instrumenter<ClientRequestContext, RequestLog> clientInstrumenter,
       Instrumenter<ServiceRequestContext, RequestLog> serverInstrumenter) {
-//    this.clientInstrumenter = clientInstrumenter;
-//    this.serverInstrumenter = serverInstrumenter;
+    this.clientInstrumenter = clientInstrumenter;
+    this.serverInstrumenter = serverInstrumenter;
   }
 
   /**
