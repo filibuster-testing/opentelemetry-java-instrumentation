@@ -13,8 +13,6 @@ import com.linecorp.armeria.server.ServiceRequestContext;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.instrumentation.api.instrumenter.Instrumenter;
 import java.util.function.Function;
-import cloud.filibuster.instrumentation.libraries.armeria.http.FilibusterDecoratingHttpClient;
-import cloud.filibuster.instrumentation.libraries.armeria.http.FilibusterDecoratingHttpService;
 
 /** Entrypoint for tracing Armeria services or clients. */
 @SuppressWarnings("FieldCanBeLocal")
@@ -44,7 +42,7 @@ public final class ArmeriaTracing {
    * com.linecorp.armeria.client.ClientBuilder#decorator(Function)}.
    */
   public Function<? super HttpClient, ? extends HttpClient> newClientDecorator() {
-    return client -> new FilibusterDecoratingHttpClient(client);
+    return client -> new OpenTelemetryFilibusterDecoratingHttpClient(client, clientInstrumenter);
   }
 
   /**
@@ -52,6 +50,6 @@ public final class ArmeriaTracing {
    * HttpService#decorate(Function)}.
    */
   public Function<? super HttpService, ? extends HttpService> newServiceDecorator() {
-    return service -> new FilibusterDecoratingHttpService(service);
+    return service -> new OpenTelemetryFilibusterDecoratingHttpService(service, serverInstrumenter);
   }
 }

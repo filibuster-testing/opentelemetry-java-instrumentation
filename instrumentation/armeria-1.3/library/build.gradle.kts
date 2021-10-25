@@ -6,7 +6,10 @@ plugins {
 dependencies {
   library("com.linecorp.armeria:armeria:1.3.0")
 
-  library("cloud.filibuster:instrumentation:0.3-SNAPSHOT")
+  library("cloud.filibuster:instrumentation:0.12-SNAPSHOT")
+
+  library("com.github.cliftonlabs:json-simple:2.1.2")
+  library("org.json:json:20210307")
 
   testImplementation(project(":instrumentation:armeria-1.3:testing"))
 }

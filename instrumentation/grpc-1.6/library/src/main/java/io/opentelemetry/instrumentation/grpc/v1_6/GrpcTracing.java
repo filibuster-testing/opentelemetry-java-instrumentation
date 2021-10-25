@@ -11,8 +11,6 @@ import io.grpc.Status;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.context.propagation.ContextPropagators;
 import io.opentelemetry.instrumentation.api.instrumenter.Instrumenter;
-import cloud.filibuster.instrumentation.libraries.grpc.FilibusterClientInterceptor;
-import cloud.filibuster.instrumentation.libraries.grpc.FilibusterServerInterceptor;
 
 /** Entrypoint for tracing gRPC servers or clients. */
 @SuppressWarnings("FieldCanBeLocal")
@@ -49,7 +47,7 @@ public final class GrpcTracing {
    * io.grpc.ManagedChannelBuilder#intercept(ClientInterceptor...)}.
    */
   public ClientInterceptor newClientInterceptor() {
-    return new FilibusterClientInterceptor();
+    return new OpenTelemetryFilibusterClientInterceptor(clientInstrumenter, propagators);
   }
 
   /**
@@ -57,6 +55,6 @@ public final class GrpcTracing {
    * io.grpc.ServerBuilder#intercept(ServerInterceptor)}.
    */
   public ServerInterceptor newServerInterceptor() {
-    return new FilibusterServerInterceptor();
+    return new OpenTelemetryFilibusterServerInterceptor(serverInstrumenter);
   }
 }
