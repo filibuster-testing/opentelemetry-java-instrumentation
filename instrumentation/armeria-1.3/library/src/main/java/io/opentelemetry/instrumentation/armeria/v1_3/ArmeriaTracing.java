@@ -15,6 +15,7 @@ import io.opentelemetry.instrumentation.api.instrumenter.Instrumenter;
 import java.util.function.Function;
 
 /** Entrypoint for tracing Armeria services or clients. */
+@SuppressWarnings("FieldCanBeLocal")
 public final class ArmeriaTracing {
 
   /** Returns a new {@link ArmeriaTracing} configured with the given {@link OpenTelemetry}. */
@@ -41,7 +42,7 @@ public final class ArmeriaTracing {
    * com.linecorp.armeria.client.ClientBuilder#decorator(Function)}.
    */
   public Function<? super HttpClient, ? extends HttpClient> newClientDecorator() {
-    return client -> new OpenTelemetryClient(client, clientInstrumenter);
+    return client -> new OpenTelemetryFilibusterDecoratingHttpClient(client, clientInstrumenter);
   }
 
   /**
@@ -49,6 +50,6 @@ public final class ArmeriaTracing {
    * HttpService#decorate(Function)}.
    */
   public Function<? super HttpService, ? extends HttpService> newServiceDecorator() {
-    return service -> new OpenTelemetryService(service, serverInstrumenter);
+    return service -> new OpenTelemetryFilibusterDecoratingHttpService(service, serverInstrumenter);
   }
 }

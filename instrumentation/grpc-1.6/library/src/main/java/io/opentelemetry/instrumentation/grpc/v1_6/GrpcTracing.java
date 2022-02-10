@@ -13,6 +13,7 @@ import io.opentelemetry.context.propagation.ContextPropagators;
 import io.opentelemetry.instrumentation.api.instrumenter.Instrumenter;
 
 /** Entrypoint for tracing gRPC servers or clients. */
+@SuppressWarnings("FieldCanBeLocal")
 public final class GrpcTracing {
 
   /** Returns a new {@link GrpcTracing} configured with the given {@link OpenTelemetry}. */
@@ -46,7 +47,7 @@ public final class GrpcTracing {
    * io.grpc.ManagedChannelBuilder#intercept(ClientInterceptor...)}.
    */
   public ClientInterceptor newClientInterceptor() {
-    return new TracingClientInterceptor(clientInstrumenter, propagators);
+    return new OpenTelemetryFilibusterClientInterceptor(clientInstrumenter, propagators);
   }
 
   /**
@@ -54,6 +55,6 @@ public final class GrpcTracing {
    * io.grpc.ServerBuilder#intercept(ServerInterceptor)}.
    */
   public ServerInterceptor newServerInterceptor() {
-    return new TracingServerInterceptor(serverInstrumenter, captureExperimentalSpanAttributes);
+    return new OpenTelemetryFilibusterServerInterceptor(serverInstrumenter);
   }
 }
