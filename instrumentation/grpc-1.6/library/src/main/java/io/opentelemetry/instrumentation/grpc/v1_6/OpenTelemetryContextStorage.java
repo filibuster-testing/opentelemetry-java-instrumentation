@@ -3,7 +3,6 @@ package io.opentelemetry.instrumentation.grpc.v1_6;
 import cloud.filibuster.instrumentation.datatypes.VectorClock;
 import cloud.filibuster.instrumentation.storage.ContextStorage;
 import io.opentelemetry.context.Context;
-
 import javax.annotation.Nullable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +17,7 @@ public class OpenTelemetryContextStorage implements ContextStorage {
 
     private Context context;
 
-    // TODO: Context.current() should maybe be cached, who knows?
+    // Context.current() should maybe be cached, who knows?
 
     public OpenTelemetryContextStorage() {
         this.context = Context.current();
@@ -66,10 +65,6 @@ public class OpenTelemetryContextStorage implements ContextStorage {
     @Nullable
     public String getExecutionIndex() {
         return Context.current().get(EXECUTION_INDEX_KEY);
-    }
-
-    public String getExecutionIndexFromContext(Context context) {
-      return context.get(EXECUTION_INDEX_KEY);
     }
 
     @Override
