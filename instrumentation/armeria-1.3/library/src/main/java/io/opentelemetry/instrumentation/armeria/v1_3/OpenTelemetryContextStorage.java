@@ -1,23 +1,23 @@
 package io.opentelemetry.instrumentation.armeria.v1_3;
 
+import cloud.filibuster.instrumentation.datatypes.VectorClock;
+import cloud.filibuster.instrumentation.storage.ContextStorage;
+import io.opentelemetry.context.Context;
+import javax.annotation.Nullable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static io.opentelemetry.instrumentation.api.filibuster.OpenTelemetryContextStorageConstants.EXECUTION_INDEX_KEY;
 import static io.opentelemetry.instrumentation.api.filibuster.OpenTelemetryContextStorageConstants.ORIGIN_VCLOCK_KEY;
 import static io.opentelemetry.instrumentation.api.filibuster.OpenTelemetryContextStorageConstants.REQUEST_ID_KEY;
 import static io.opentelemetry.instrumentation.api.filibuster.OpenTelemetryContextStorageConstants.VCLOCK_KEY;
-
-import cloud.filibuster.instrumentation.datatypes.VectorClock;
-import cloud.filibuster.instrumentation.storage.ContextStorage;
-import io.opentelemetry.context.Context;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Nullable;
 
 public class OpenTelemetryContextStorage implements ContextStorage {
     private static final Logger logger = Logger.getLogger(OpenTelemetryContextStorage.class.getName());
 
     private Context context;
 
-    // TODO: Context.current() should maybe be cached, who knows?
+    // Context.current() should maybe be cached, who knows?
 
     public OpenTelemetryContextStorage() {
         this.context = Context.current();
